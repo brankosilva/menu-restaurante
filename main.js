@@ -1,6 +1,7 @@
 //*************************************** ****************** ***********************************//
 //*************************************** MENU BODEGÓN ****************************************//
 
+
 let menu = [
 
     {nombre: "bastones de muzzarella", precio: 4000, categoria: "entradas"},
@@ -12,18 +13,20 @@ let menu = [
     {nombre: "flan con ddl", precio: 3800, categoria: "postres"},
 ];
 
+console.table(menu)
 
 function menuBodegon () {
     console.log("🟡 Menú del Bodegón 👇");
     menu.forEach((producto) => {
-        console.log(producto.nombre + " "+ "-" + " " + "$"+ producto.precio + " " + "-" + " " + producto.categoria);
+        console.table(producto.nombre + " "+ "-" + " " + "$"+ producto.precio + " " + "-" + " " + producto.categoria);
     });
 }
 
 
-
 //*************************************** ****************** *********************************************//
 //*************************************** AGREGAR PRODUCTO NUEVO ****************************************//
+
+
 
 class Producto {
     constructor (nombre, precio, categoria) {
@@ -49,9 +52,9 @@ function agregarProducto() {
 }
 
 
-
 //*************************************** ****************** *********************************************//
 //*************************************** MODIFICAR PRECIO PRODUCTO ****************************************//
+
 
 
 function modificarPrecio () {
@@ -68,8 +71,11 @@ function modificarPrecio () {
 }
 
 
+
 //*************************************** ****************** *********************************************//
 //*************************************** MODIFICAR NOMBRE PRODUCTO ****************************************//
+
+
 
 function modificarNombre () {
     let cambioNombreProducto = prompt ("Ingresá el nombre del producto que queres modificar").toLowerCase();
@@ -85,8 +91,11 @@ function modificarNombre () {
 }
 
 
+
 //*************************************** ****************** *********************************************//
 //*************************************** ELIMINAR UN PRODUCTO DEL MENÚ ****************************************//
+
+
 
 function eliminarProducto () {
     let eliminarProducto = prompt ("Ingresá el nombre del producto que queres eliminar").toLowerCase();
@@ -101,33 +110,88 @@ function eliminarProducto () {
 }
 
 
+
 //*************************************** ****************** *********************************************//
-//*************************************** MODIFICAR PRECIO PRODUCTO ****************************************//
+//*************************************** EJECUTAR FUNCIONAMIENTO MENU 1 ****************************************//
+
+
+
+    function funcionamientoMenu () {
+
+            let solicitarCambioMenu = parseInt(prompt ("Qué querés hacer? " + "Selecciona:" + "\n1 - Agregar producto nuevo\n2 - Eliminar producto\n3 - Modificar precio\n4 - Modificar nombre\n5 - Mostrar menú\n6 - Salir del menú"));
+
+            switch (solicitarCambioMenu) {
+                case 1: 
+                    agregarProducto();
+                    break;
+                case 2: 
+                    eliminarProducto ();
+                    break;
+                case 3: 
+                    modificarPrecio ();
+                    break;
+                case 4: 
+                    modificarNombre ();
+                    break;
+                case 5: 
+                    menuBodegon ();
+                    break;
+                case 6: 
+                    alert("Estas saliendo del menú");
+                    continuar = false;
+                    break;
+                default:
+                    alert("Opción no válida. Ingresá un número entre 1 y 6")
+            }
+        }
+
+funcionamientoMenu ();
+
+
+
+//*************************************** EJECUTAR FUNCIONAMIENTO MENU 2 ****************************************//
+
+
 
 function funcionamientoMenu () {
-    let solicitarCambioMenu = parseInt(prompt ("Qué querés hacer? " + "Selecciona:" + "\n1 - Agregar producto nuevo\n2 - Eliminar producto\n3 - Modificar precio\n4 - Modificar nombre\n5 - Mostrar menú"));
 
-    switch (solicitarCambioMenu) {
-        case 1: 
-            agregarProducto();
-            break;
-        case 2: 
-            eliminarProducto ();
-            break;
-        case 3: 
-            modificarPrecio ();
-            break;
-        case 4: 
-            modificarNombre ();
-            break;
-        case 5: 
-            menuBodegon ();
-            break;
-        default:
-            alert("Opción no válida. Ingresá un número entre 1 y 5")
+    let continuar = true; 
+
+    while (continuar) {
+
+        let solicitarCambioMenu = parseInt(prompt ("Qué querés hacer? " + "Selecciona:" + "\n1 - Agregar producto nuevo\n2 - Eliminar producto\n3 - Modificar precio\n4 - Modificar nombre\n5 - Mostrar menú\n6 - Salir del menú"));
+
+        switch (solicitarCambioMenu) {
+            case 1: 
+                agregarProducto();
+                break;
+            case 2: 
+                eliminarProducto ();
+                break;
+            case 3: 
+                modificarPrecio ();
+                break;
+            case 4: 
+                modificarNombre ();
+                break;
+            case 5: 
+                menuBodegon ();
+                break;
+            case 6: 
+                alert("Estas saliendo del menú");
+                continuar = false;
+                break;
+            default:
+                alert("Opción no válida. Ingresá un número entre 1 y 6")
+        }
+
+        if ( continuar && solicitarCambioMenu !== 6) {
+            continuar = confirm("¿Querés realizar otro cambio en el menú?");
+        }
     }
 }
 
-//*************************************** EJECUTAR FUNCIONAMIENTO MENU ****************************************//
-
 funcionamientoMenu ()
+
+
+
