@@ -1,4 +1,5 @@
-//*************************************** MENU BODEGÓN ****************************************/
+//*************************************** ****************** ***********************************//
+//*************************************** MENU BODEGÓN ****************************************//
 
 let menu = [
 
@@ -20,6 +21,7 @@ function menuBodegon () {
 }
 
 
+
 //*************************************** ****************** *********************************************//
 //*************************************** AGREGAR PRODUCTO NUEVO ****************************************//
 
@@ -35,16 +37,17 @@ function agregarProducto() {
     let productoNuevo = prompt("Ingresá el nombre del nuevo producto:").toLowerCase();
     let productoNuevoExiste = menu.some((producto) => producto.nombre.toLowerCase() === productoNuevo)
 
-        if (productoNuevoExiste) {
-            alert ("Ese producto ya existe");
-        } else {
-            let precioNuevo = parseFloat(prompt("Ingresá el precio del nuevo producto:"));
-            let categoriaNueva = prompt("Ingresá la categoria del nuevo producto:").toLowerCase();
+    if (productoNuevoExiste) {
+        alert ("Ese producto ya existe");
+    } else {
+        let precioNuevo = parseFloat(prompt("Ingresá el precio del nuevo producto:"));
+        let categoriaNueva = prompt("Ingresá la categoria del nuevo producto:").toLowerCase();
 
-            menu.push( new Producto(productoNuevo, precioNuevo, categoriaNueva));
-            alert ("El producto" + " " + productoNuevo + " " + "se agregó correctamente");
-        }
+        menu.push( new Producto(productoNuevo, precioNuevo, categoriaNueva));
+        alert ("El producto" + " " + productoNuevo + " " + "se agregó correctamente");
     }
+}
+
 
 
 //*************************************** ****************** *********************************************//
@@ -64,6 +67,7 @@ function modificarPrecio () {
     }
 }
 
+
 //*************************************** ****************** *********************************************//
 //*************************************** MODIFICAR NOMBRE PRODUCTO ****************************************//
 
@@ -80,6 +84,7 @@ function modificarNombre () {
     }
 }
 
+
 //*************************************** ****************** *********************************************//
 //*************************************** ELIMINAR UN PRODUCTO DEL MENÚ ****************************************//
 
@@ -95,8 +100,34 @@ function eliminarProducto () {
     }
 }
 
-eliminarProducto ()
-modificarNombre ()
-modificarPrecio ()
-agregarProducto()
-menuBodegon ()
+
+//*************************************** ****************** *********************************************//
+//*************************************** MODIFICAR PRECIO PRODUCTO ****************************************//
+
+function funcionamientoMenu () {
+    let solicitarCambioMenu = parseInt(prompt ("Qué querés hacer? " + "Selecciona:" + "\n1 - Agregar producto nuevo\n2 - Eliminar producto\n3 - Modificar precio\n4 - Modificar nombre\n5 - Mostrar menú"));
+
+    switch (solicitarCambioMenu) {
+        case 1: 
+            agregarProducto();
+            break;
+        case 2: 
+            eliminarProducto ();
+            break;
+        case 3: 
+            modificarPrecio ();
+            break;
+        case 4: 
+            modificarNombre ();
+            break;
+        case 5: 
+            menuBodegon ();
+            break;
+        default:
+            alert("Opción no válida. Ingresá un número entre 1 y 5")
+    }
+}
+
+//*************************************** EJECUTAR FUNCIONAMIENTO MENU ****************************************//
+
+funcionamientoMenu ()
