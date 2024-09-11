@@ -13,7 +13,6 @@ let menu = [
     {nombre: "flan con ddl", precio: 3800, categoria: "postres"},
 ];
 
-console.table(menu)
 
 function menuBodegon () {
     console.log("🟡 Menú del Bodegón 👇");
@@ -151,7 +150,7 @@ funcionamientoMenu ();
 
 //*************************************** EJECUTAR FUNCIONAMIENTO MENU 2 ****************************************//
 
-
+/*
 
 function funcionamientoMenu () {
 
@@ -193,5 +192,5 @@ function funcionamientoMenu () {
 
 funcionamientoMenu ()
 
-
+*/
 
