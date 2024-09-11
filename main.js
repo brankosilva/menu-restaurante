@@ -13,13 +13,7 @@ let menu = [
     {nombre: "flan con ddl", precio: 3800, categoria: "postres"},
 ];
 
-
-function menuBodegon () {
-    console.log("🟡 Menú del Bodegón 👇");
-    menu.forEach((producto) => {
-        console.table(producto.nombre + " "+ "-" + " " + "$"+ producto.precio + " " + "-" + " " + producto.categoria);
-    });
-}
+console.table(menu);
 
 
 //*************************************** ****************** *********************************************//
@@ -36,18 +30,33 @@ class Producto {
 }
 
 function agregarProducto() {
-    let productoNuevo = prompt("Ingresá el nombre del nuevo producto:").toLowerCase();
-    let productoNuevoExiste = menu.some((producto) => producto.nombre.toLowerCase() === productoNuevo)
+    let continuar = true;
 
-    if (productoNuevoExiste) {
-        alert ("Ese producto ya existe");
-    } else {
-        let precioNuevo = parseFloat(prompt("Ingresá el precio del nuevo producto:"));
-        let categoriaNueva = prompt("Ingresá la categoria del nuevo producto:").toLowerCase();
+    while (continuar === true) {
+        let productoNuevo = prompt("Ingresá el nombre del nuevo producto:").toLowerCase();
+        let productoNuevoExiste = menu.some((producto) => producto.nombre.toLowerCase() === productoNuevo);
 
-        menu.push( new Producto(productoNuevo, precioNuevo, categoriaNueva));
-        alert ("El producto" + " " + productoNuevo + " " + "se agregó correctamente");
+        if (!productoNuevoExiste) {
+            let precioNuevo = parseFloat(prompt("Ingresá el precio del nuevo producto:"));
+                if (isNaN(precioNuevo) || precioNuevo < 0 ) {
+                    alert ("ingresa un precio válido");
+                } else {
+                    let categoriaNueva = prompt("Ingresá la categoria del nuevo producto:").toLowerCase();
+                    menu.push( new Producto(productoNuevo, precioNuevo, categoriaNueva));
+                    alert ("El producto" + " " + productoNuevo + " " + "se agregó correctamente");
+                }
+        } else {
+                alert ("Ese producto ya existe");
+        }
+
+        let respuesta = prompt ("¿Queres agregar otro producto al menú? Si/No").toLocaleLowerCase();
+        if (respuesta === "si") {
+            continuar = true
+        } else {
+            continuar = false;
+        }
     }
+
 }
 
 
@@ -57,16 +66,34 @@ function agregarProducto() {
 
 
 function modificarPrecio () {
-    let cambioPrecioProducto = prompt ("Ingresá el nombre del producto que le querés cambiar el precio").toLowerCase();
-    let productoEncontrado = menu.find((producto) => producto.nombre.toLowerCase() === cambioPrecioProducto);
+    let continuar = true;
 
-    if(productoEncontrado) {
-        let nuevoPrecio = parseFloat(prompt("Ingresa el nuevo precio para:" + " " + cambioPrecioProducto));
-        productoEncontrado.precio = nuevoPrecio;
-        alert("El precio del" + " " + cambioPrecioProducto + " " + "se modificó a:" + " " + "$" + nuevoPrecio);
-    } else {
-        alert("El producto que quiere modificar no se encuentra en el menú")
+    while (continuar === true) {
+
+        let cambioPrecioProducto = prompt ("Ingresá el nombre del producto que le querés cambiar el precio").toLowerCase();
+        let productoEncontrado = menu.find((producto) => producto.nombre.toLowerCase() === cambioPrecioProducto);
+    
+        if(productoEncontrado) {
+            let nuevoPrecio = parseFloat(prompt("Ingresa el nuevo precio para:" + " " + cambioPrecioProducto));
+            if (isNaN(nuevoPrecio) || nuevoPrecio < 0 ) {
+                alert ("ingresa un precio válido");
+            } else {
+                productoEncontrado.precio = nuevoPrecio;
+                alert("El precio del" + " " + cambioPrecioProducto + " " + "se modificó a:" + " " + "$" + nuevoPrecio);
+            }
+
+        } else {
+            alert("El producto que quiere modificar no se encuentra en el menú")
+        }
+
+        let respuesta = prompt ("¿Queres modificar el precio de otro producto? Si/No").toLocaleLowerCase();
+        if (respuesta === "si") {
+            continuar = true
+        } else {
+            continuar = false;
+        }
     }
+
 }
 
 
@@ -77,15 +104,27 @@ function modificarPrecio () {
 
 
 function modificarNombre () {
-    let cambioNombreProducto = prompt ("Ingresá el nombre del producto que queres modificar").toLowerCase();
-    productoEncontrado = menu.find((producto) => producto.nombre.toLowerCase() === cambioNombreProducto);
+    let continuar = true;
 
-    if(productoEncontrado) {
-        let nuevoNombre = prompt("Ingresa el nuevo nombre para:" + " " + cambioNombreProducto).toLowerCase();
-        productoEncontrado.nombre = nuevoNombre;
-        alert("El nombre del" + " " + cambioNombreProducto + " " + "se modificó a:" + " " + nuevoNombre);
-    } else {
-        alert("El producto que quiere modificar no se encuentra en el menú")
+    while (continuar === true) {
+
+        let cambioNombreProducto = prompt ("Ingresá el nombre del producto que queres modificar").toLowerCase();
+        let productoEncontrado = menu.find((producto) => producto.nombre.toLowerCase() === cambioNombreProducto);
+    
+        if(productoEncontrado) {
+            let nuevoNombre = prompt("Ingresa el nuevo nombre para:" + " " + cambioNombreProducto).toLowerCase();
+            productoEncontrado.nombre = nuevoNombre;
+            alert("El nombre del" + " " + cambioNombreProducto + " " + "se modificó a:" + " " + nuevoNombre);
+        } else {
+            alert("El producto que quiere modificar no se encuentra en el menú")
+        }
+
+        let respuesta = prompt ("¿Queres modificar el nombre de otro producto? Si/No").toLocaleLowerCase();
+        if (respuesta === "si") {
+            continuar = true
+        } else {
+            continuar = false;
+        }
     }
 }
 
@@ -97,68 +136,38 @@ function modificarNombre () {
 
 
 function eliminarProducto () {
-    let eliminarProducto = prompt ("Ingresá el nombre del producto que queres eliminar").toLowerCase();
-    let menuActualizado = menu.filter((producto) => producto.nombre.toLowerCase() !== eliminarProducto);
+    let continuar = true;
 
-    if(menuActualizado.length === menu.length) {
-        alert("El producto que queres eliminar, no se encuentra en el menú");
-    } else {
-        menu = menuActualizado;
-        alert("El producto" + " " + eliminarProducto + " " + "fue eliminado del menú")
+    while (continuar === true) {
+
+        let eliminarProducto = prompt ("Ingresá el nombre del producto que queres eliminar").toLowerCase();
+        let menuActualizado = menu.filter((producto) => producto.nombre.toLowerCase() !== eliminarProducto);
+    
+        if(menuActualizado.length === menu.length) {
+            alert("El producto que queres eliminar, no se encuentra en el menú");
+        } else {
+            menu = menuActualizado;
+            alert("El producto" + " " + eliminarProducto + " " + "fue eliminado del menú")
+        }
+
+        let respuesta = prompt ("¿Queres eliminar otro producto? Si/No").toLocaleLowerCase();
+        if (respuesta === "si") {
+            continuar = true
+        } else {
+            continuar = false;
+        }
     }
 }
 
 
+//*************************************** EJECUTAR FUNCIONAMIENTO MENU  ****************************************//
 
-//*************************************** ****************** *********************************************//
-//*************************************** EJECUTAR FUNCIONAMIENTO MENU 1 ****************************************//
-
-
-
-    function funcionamientoMenu () {
-
-            let solicitarCambioMenu = parseInt(prompt ("Qué querés hacer? " + "Selecciona:" + "\n1 - Agregar producto nuevo\n2 - Eliminar producto\n3 - Modificar precio\n4 - Modificar nombre\n5 - Mostrar menú\n6 - Salir del menú"));
-
-            switch (solicitarCambioMenu) {
-                case 1: 
-                    agregarProducto();
-                    break;
-                case 2: 
-                    eliminarProducto ();
-                    break;
-                case 3: 
-                    modificarPrecio ();
-                    break;
-                case 4: 
-                    modificarNombre ();
-                    break;
-                case 5: 
-                    menuBodegon ();
-                    break;
-                case 6: 
-                    alert("Estas saliendo del menú");
-                    continuar = false;
-                    break;
-                default:
-                    alert("Opción no válida. Ingresá un número entre 1 y 6")
-            }
-        }
-
-funcionamientoMenu ();
-
-
-
-//*************************************** EJECUTAR FUNCIONAMIENTO MENU 2 ****************************************//
-
-/*
 
 function funcionamientoMenu () {
+    
+    let solicitarCambioMenu = parseInt(prompt ("Qué querés hacer? " + "Selecciona:" + "\n1 - Agregar producto nuevo\n2 - Eliminar producto\n3 - Modificar precio\n4 - Modificar nombre\n5 - Mostrar menú\n6 - Salir del menú"));
 
-    let continuar = true; 
-
-    while (continuar) {
-
-        let solicitarCambioMenu = parseInt(prompt ("Qué querés hacer? " + "Selecciona:" + "\n1 - Agregar producto nuevo\n2 - Eliminar producto\n3 - Modificar precio\n4 - Modificar nombre\n5 - Mostrar menú\n6 - Salir del menú"));
+    let continuar = false; 
 
         switch (solicitarCambioMenu) {
             case 1: 
@@ -174,23 +183,27 @@ function funcionamientoMenu () {
                 modificarNombre ();
                 break;
             case 5: 
-                menuBodegon ();
+                console.table(menu);
                 break;
             case 6: 
                 alert("Estas saliendo del menú");
-                continuar = false;
+                continuar = true;
                 break;
             default:
-                alert("Opción no válida. Ingresá un número entre 1 y 6")
+                alert("Opción no válida. Ingresá un número entre 1 y 6");
         }
 
-        if ( continuar && solicitarCambioMenu !== 6) {
-            continuar = confirm("¿Querés realizar otro cambio en el menú?");
+        if (solicitarCambioMenu !== 6) {
+            let otroCambio = confirm("¿Queres ver el menú o hacer más cambios?");
+            if (otroCambio === true) {
+                funcionamientoMenu ();
+            } else {
+                alert("Estas saliendo del menú")
+            }
         }
-    }
 }
 
-funcionamientoMenu ()
+funcionamientoMenu ();
 
-*/
+
 
